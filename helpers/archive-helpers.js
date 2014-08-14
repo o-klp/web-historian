@@ -25,11 +25,33 @@ exports.initialize = function(pathsObj){
 
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
+//www.google.com,www.facebook.com,
+exports.readListOfUrls = function(callback){
 
-exports.readListOfUrls = function(){
+  // read our list file
+  fs.readFile( exports.paths.list, 'utf8', function(error, data){
+    if(error) throw error;
+    var aArchivedSites = data.split('\n');
+    callback(aArchivedSites);
+  });
+
+
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(siteUrl, callback){
+
+
+  exports.readListOfUrls(function(data){
+    var isInList = false;
+    data.forEach(function(item){
+      if(item === siteUrl){
+        isInList = true;
+      }
+    });
+    callback(isInList);
+  });
+
+
 };
 
 exports.addUrlToList = function(){
