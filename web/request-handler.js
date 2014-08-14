@@ -20,22 +20,17 @@ exports.handleRequest = function (request, response) {
 
   }else{
     var siteUrl = pathName.slice(1);
-    archive.isUrlInList(siteUrl, function(isInList){
-      if(isInList){
-        statusCode = 200;
-        response.writeHead(statusCode, helpers.headers);
-        response.end('Found in list');
-      }else{
-        statusCode = 404;
-        response.writeHead(statusCode, helpers.headers);
-        response.end('was not found in list');
-      }
+    archive.readListOfUrls(function(data){
+      data.forEach(function(item){
+        if(item === siteUrl){
+          statusCode = 200;
+          response.writeHead(statusCode, helpers.headers);
+          response.end(item+" was found");
+        }
+      });
+      response.writeHead(statusCode, helpers.headers);
+      response.end(siteUrl + " was not found");
     });
   }
-
-  // helpers.readListOfUrls(pathName);
-
-  //response.writeHead(statusCode, helpers.headers);
-  //response.end();
 
 };

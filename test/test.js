@@ -38,7 +38,7 @@ describe("Node Server Request Listener Function", function() {
   });
 
   it("Should answer GET requests for archived websites", function(done) {
-    var fixtureName = "www.google.com";
+    var fixtureName = "example1.com";
     var req = new stubs.Request("/" + fixtureName, "GET");
 
     handler.handleRequest(req, res);
@@ -47,7 +47,7 @@ describe("Node Server Request Listener Function", function() {
       function() { return res._ended; },
       function(){
         expect(res._responseCode).to.equal(200);
-        expect(res._data.toString().match(/google/)).to.be.ok; // the resulting html should have the text "google"
+        expect(res._data.toString().match(/example1.com/)).to.be.ok; // the resulting html should have the text "example1.com"
         done();
     });
   });
