@@ -16,6 +16,4 @@ exports.handleRequest = function (request, response) {
     helpers.handlePOST(request, response);
   }
 
-
-
 };

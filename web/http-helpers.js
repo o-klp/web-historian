@@ -75,7 +75,8 @@ exports.handlePOST = function(request, response){
         else{
           // if url was not found: add to list
           statusCode = 302;
-          archive.addUrlToList(siteUrl);
+          console.log("About to call downloadUrls...");
+          archive.downloadUrls(siteUrl);
 
           console.log('is not in list ', siteUrl);
 
