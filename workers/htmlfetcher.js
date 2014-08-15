@@ -14,11 +14,8 @@ exports.downloadUrl = function(siteUrl){
       fs.writeFile(archive.paths.archivedSites + '/' + siteUrl, response.buffer, function(err){
         if(err){
           console.log("error archiving ", siteUrl, " : ", err);
-          //send response back 404
-          // response.writeHead(404, );
 
         }
       });
-      console.log(response.buffer.toString());
     });
 };

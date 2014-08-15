@@ -65,8 +65,6 @@ exports.handleGET = function(request, response){
 exports.handlePOST = function(request, response){
   var statusCode = 404;
 
-
-
   //check if the passed in url is in the list
   request.on('data', function(data){
     var siteUrl = "";
@@ -84,14 +82,14 @@ exports.handlePOST = function(request, response){
         else{
           // if url was not found: add to list
           statusCode = 302;
-          console.log("About to call downloadUrls...");
           htmlFetcher.downloadUrl(siteUrl);
           archive.addUrlToList(siteUrl);
-          console.log('is not in list ', siteUrl);
 
+          exports.serveAssets(response, siteUrl, function(data){
+            exports.finalizeResponse(statusCode, response, data);
+          })
         }
-        response.writeHead(statusCode, exports.headers);
-        response.end(siteUrl + " was found: "+ isInList);
+
     });
 
   });
